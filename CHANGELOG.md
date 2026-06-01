@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.16.2] - 2026-06-01
+### Behoben
+- **„Open in HACS"-Button korrigiert:** My-Link-Kategorie von `frontend` auf `plugin` geändert.
+  Die HACS-Frontend-Route `/hacs/repository?…&category=…` akzeptiert nur `plugin`; mit `frontend`
+  führte der Button bei nicht installierten Custom-Repos zu „Repository nicht gefunden".
+- README-Bilder werden jetzt **in HACS angezeigt**: Galerie und Screenshots nutzen absolute
+  `raw.githubusercontent.com`-URLs statt relativer Pfade. HACS rewritet relative Pfade nur in
+  Markdown-Bildern (`![](…)`), nicht in HTML-`<img>` — daher blieben die Bilder vorher leer.
+
+### Geändert
+- Mindest-Home-Assistant-Version in `hacs.json` von `2026.1.0` auf `2025.10.0` gesenkt
+  (breitere Kompatibilität, analog zu großen HACS-Frontend-Karten wie Mushroom/button-card).
+
 ## [0.16.1] - 2026-06-01
 ### Geändert
 - Gebautes `comfoair-card.js` wird jetzt ins Repo committet (nötig, damit HACS das Repo über den

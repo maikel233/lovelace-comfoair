@@ -1,13 +1,13 @@
 # Home Assistant Lovelace MQTT Comfoair Card
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=TimWeyand&repository=lovelace-comfoair&category=frontend)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=TimWeyand&repository=lovelace-comfoair&category=plugin)
 
 Lovelace-Karte zur Visualisierung und Steuerung einer **ComfoAir CA350/550** Lüftungsanlage,
 angebunden über **[hacomfoairmqtt](https://github.com/adorobis/hacomfoairmqtt)** (adorobis) bzw. das
 darauf basierende **comfoair2mqtt**-Add-on (MQTT Autodiscovery).
 
-<img src="images/static-dark.png" alt="MQTT Comfoair Card" width="440">
+<img src="https://raw.githubusercontent.com/TimWeyand/lovelace-comfoair/master/images/static-dark.png" alt="MQTT Comfoair Card" width="440">
 
 ## Features
 
@@ -24,8 +24,8 @@ darauf basierende **comfoair2mqtt**-Add-on (MQTT Autodiscovery).
 
 | | Statisch (Standard) | Animiert (`animation: animated`) |
 |---|---|---|
-| **Hell** | <img src="images/static-light.png" width="320" alt="Statisch hell"> | <img src="images/animated-light.gif" width="320" alt="Animiert hell"> |
-| **Dunkel** | <img src="images/static-dark.png" width="320" alt="Statisch dunkel"> | <img src="images/animated-dark.gif" width="320" alt="Animiert dunkel"> |
+| **Hell** | <img src="https://raw.githubusercontent.com/TimWeyand/lovelace-comfoair/master/images/static-light.png" width="320" alt="Statisch hell"> | <img src="https://raw.githubusercontent.com/TimWeyand/lovelace-comfoair/master/images/animated-light.gif" width="320" alt="Animiert hell"> |
+| **Dunkel** | <img src="https://raw.githubusercontent.com/TimWeyand/lovelace-comfoair/master/images/static-dark.png" width="320" alt="Statisch dunkel"> | <img src="https://raw.githubusercontent.com/TimWeyand/lovelace-comfoair/master/images/animated-dark.gif" width="320" alt="Animiert dunkel"> |
 
 ## Installation
 
@@ -52,7 +52,7 @@ type: module
 2. **Nur die climate-Entity auswählen** (z. B. `climate.ca350_climate`) — die übrigen Entities
    werden automatisch erkannt. Unter „Erweitert / manuelle Zuordnung" überschreibbar.
 
-<img src="images/settings.png" alt="Karten-Editor mit allen Optionen" width="460">
+<img src="https://raw.githubusercontent.com/TimWeyand/lovelace-comfoair/master/images/settings.png" alt="Karten-Editor mit allen Optionen" width="460">
 
 ### Optionen
 
