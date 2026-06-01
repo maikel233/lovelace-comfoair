@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.16.3] - 2026-06-01
+### Geändert
+- CI/Release-Workflows auf aktuelle Action-Majors gehoben (Node-20-Deprecation behoben):
+  `actions/checkout@v6`, `actions/setup-node@v6`, `softprops/action-gh-release@v3`; Build-Node
+  von 20 (EOL) auf 22 (LTS). Keine funktionale Änderung an der Karte.
+
 ## [0.16.2] - 2026-06-01
 ### Behoben
 - **„Open in HACS"-Button korrigiert:** My-Link-Kategorie von `frontend` auf `plugin` geändert.
