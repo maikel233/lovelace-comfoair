@@ -1,10 +1,10 @@
 name: Release
 
-# Push auf master: erst Typecheck + Tests + Build. Laufen die durch, wird ein Release
-# erstellt. Die Release-Version ist die `version` aus package.json (Tag vX.Y.Z). Existiert
-# dieser Tag bereits, wird automatisch die Patch-Version erhöht. Für gezielte minor/major-
-# Sprünge einfach die Version in package.json setzen. Das gebaute comfoair-card.js hängt nur
-# am Release (nicht im Repo); HACS liest die Version aus dem Release-Tag.
+# Push auf master: Typecheck + Tests + Build. Danach Release. Die Release-Version ist die
+# `version` aus package.json (Tag vX.Y.Z); existiert dieser Tag schon, wird automatisch die
+# Patch-Version erhöht. Für gezielte minor/major-Sprünge die `version` in package.json setzen.
+# Das gebaute comfoair-card.js wird ins Repo committet (HACS-Auflösung via My-Link braucht die
+# Datei im Default-Branch) UND als Release-Asset angehängt.
 
 on:
   push:
@@ -34,8 +34,6 @@ jobs:
         run: npm run typecheck
       - name: Unit tests
         run: npm test
-      - name: Build
-        run: npm run build
       - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
@@ -48,15 +46,23 @@ jobs:
           if git rev-parse -q --verify "refs/tags/v$V" >/dev/null; then
             echo "Tag v$V exists -> bumping patch"
             V=$(npm version patch --no-git-tag-version | sed 's/^v//')
-            git commit -am "chore(release): v$V [skip ci]"
-          else
-            echo "Releasing package.json version v$V"
           fi
+          # CARD_VERSION im Quellcode auf die Release-Version ziehen
+          node -e "const fs=require('fs');const p='src/const.ts';fs.writeFileSync(p,fs.readFileSync(p,'utf8').replace(/CARD_VERSION = '[^']*'/, \"CARD_VERSION = '$V'\"))"
           echo "version=$V" >> "$GITHUB_OUTPUT"
-      - name: Push commit and tag
+      - name: Build bundle
+        run: npm run build
+      - name: Commit bundle + version (if changed)
         run: |
           V="${{ steps.ver.outputs.version }}"
-          git tag "v$V"
+          git add comfoair-card.js package.json package-lock.json src/const.ts
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(release): v$V [skip ci]"
+          fi
+      - name: Tag and push
+        run: |
+          V="${{ steps.ver.outputs.version }}"
+          git tag "v$V" 2>/dev/null || true
           git push origin HEAD:master
           git push origin "v$V"
       - name: Create GitHub release

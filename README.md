@@ -29,15 +29,18 @@ darauf basierende **comfoair2mqtt**-Add-on (MQTT Autodiscovery).
 
 ## Installation
 
-### HACS (empfohlen)
-Auf den Button oben klicken **oder** in HACS → *Custom repositories* dieses Repo als
-Kategorie *Lovelace* hinzufügen, dann „MQTT Comfoair Card" installieren und das angebotene
-Release wählen.
+### HACS
+**Schnellster Weg:** auf den **„Open in HACS"-Button** oben klicken → öffnet das Repo in deinem
+HACS, dort **Download** wählen.
+
+Falls dein HACS das Repo nicht direkt übernimmt, einmalig als Custom Repository hinzufügen:
+1. HACS → oben rechts **⋮** → **Custom repositories**
+2. Repository `https://github.com/TimWeyand/lovelace-comfoair`, Kategorie **Dashboard** → **Add**
+3. „MQTT Comfoair Card" → **Download**
 
 ### Manuell
-Das gebaute `comfoair-card.js` aus dem **[letzten Release](../../releases/latest)** laden
-(es liegt bewusst **nicht** im Repo, sondern wird je Release gebaut) und nach
-`config/www/lovelace-comfoair/comfoair-card.js` kopieren, dann als Ressource registrieren:
+`comfoair-card.js` aus dem **[letzten Release](../../releases/latest)** (oder aus dem Repo) laden
+und nach `config/www/lovelace-comfoair/comfoair-card.js` kopieren, dann als Ressource registrieren:
 ```yaml
 url: /local/lovelace-comfoair/comfoair-card.js
 type: module
@@ -81,13 +84,14 @@ kann in HACS gezielt die alte Version (`v0.15.0`) installiert lassen.
 npm install
 npm run typecheck   # TypeScript (strict)
 npm test            # Unit-Tests (Vitest)
-npm run build       # erzeugt comfoair-card.js (nicht versioniert)
+npm run build       # erzeugt comfoair-card.js (im CI gebaut + committet)
 ```
 
-Releases laufen automatisch: Bei jedem Push auf `master` baut/testet die GitHub-Action und
-erstellt ein Release inkl. angehängtem `comfoair-card.js`. Die Release-Version ist die
-`version` aus `package.json` (Tag `vX.Y.Z`); existiert dieser Tag schon, wird automatisch die
-**Patch**-Version erhöht. Für gezielte minor/major-Sprünge die `version` in `package.json` setzen.
+Releases laufen automatisch: Bei jedem Push auf `master` baut/testet die GitHub-Action, **committet
+das frisch gebaute `comfoair-card.js` ins Repo** (für die HACS-Auflösung) und erstellt ein Release
+inkl. angehängtem Bundle. Die Release-Version ist die `version` aus `package.json` (Tag `vX.Y.Z`);
+existiert dieser Tag schon, wird automatisch die **Patch**-Version erhöht. Für gezielte
+minor/major-Sprünge die `version` in `package.json` setzen. Das Bundle muss nicht von Hand gebaut/committet werden.
 
 ## Hinweise
 - Erwartet die von hacomfoairmqtt publizierten Entitäten (`…_outside/supply/return/exhaust_temperature`,

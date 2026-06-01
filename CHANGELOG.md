@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.1] - 2026-06-01
+### Geändert
+- Gebautes `comfoair-card.js` wird jetzt ins Repo committet (nötig, damit HACS das Repo über den
+  „Open in HACS"-Button auflösen kann — wie bei vergleichbaren Karten) und weiterhin ans Release
+  gehängt. Die Release-Action hält Bundle und Versions-Banner automatisch aktuell. Kein
+  funktionaler Unterschied an der Karte selbst.
+
 ## [0.16.0] - 2026-06-01
 Kompletter Neuaufbau als wartbares TypeScript/Rollup-Projekt (vorher nur ein kompiliertes Bundle).
 

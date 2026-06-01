@@ -22,5 +22,9 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
-      - name: Ensure bundle was built
-        run: test -f comfoair-card.js
+      - name: Check committed bundle is current
+        run: |
+          test -f comfoair-card.js
+          if ! git diff --exit-code -- comfoair-card.js; then
+            echo "::warning::comfoair-card.js weicht vom Build ab — 'npm run build' ausführen und committen (wird beim Release sonst automatisch aktualisiert)."
+          fi

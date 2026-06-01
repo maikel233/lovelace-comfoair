@@ -8,8 +8,5 @@
 # Dev
 node_modules/
 
-# Build-Artefakt – wird per Release-Action gebaut und ans Release gehängt, nicht versioniert
-comfoair-card.js
-
 # Interne Doku/Planung – bleibt lokal, nicht auf GitHub
 Documentation/
