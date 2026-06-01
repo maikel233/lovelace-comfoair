@@ -1,0 +1,6 @@
+{
+  "name": "MQTT Comfoair Card",
+  "render_readme": true,
+  "homeassistant": "2026.1.0",
+  "filename": "comfoair-card.js"
+}

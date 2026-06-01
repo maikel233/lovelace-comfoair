@@ -1,0 +1,68 @@
+name: Release
+
+# Push auf master: erst Typecheck + Tests + Build. Laufen die durch, wird ein Release
+# erstellt. Die Release-Version ist die `version` aus package.json (Tag vX.Y.Z). Existiert
+# dieser Tag bereits, wird automatisch die Patch-Version erhöht. Für gezielte minor/major-
+# Sprünge einfach die Version in package.json setzen. Das gebaute comfoair-card.js hängt nur
+# am Release (nicht im Repo); HACS liest die Version aus dem Release-Tag.
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: Type check
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Resolve version
+        id: ver
+        run: |
+          git fetch --tags --force
+          V=$(node -p "require('./package.json').version")
+          if git rev-parse -q --verify "refs/tags/v$V" >/dev/null; then
+            echo "Tag v$V exists -> bumping patch"
+            V=$(npm version patch --no-git-tag-version | sed 's/^v//')
+            git commit -am "chore(release): v$V [skip ci]"
+          else
+            echo "Releasing package.json version v$V"
+          fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+      - name: Push commit and tag
+        run: |
+          V="${{ steps.ver.outputs.version }}"
+          git tag "v$V"
+          git push origin HEAD:master
+          git push origin "v$V"
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: v${{ steps.ver.outputs.version }}
+          files: comfoair-card.js
+          generate_release_notes: true

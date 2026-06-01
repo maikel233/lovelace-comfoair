@@ -1,6 +1,15 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 /.vs
 .DS_Store
+
+# Dev
+node_modules/
+
+# Build-Artefakt – wird per Release-Action gebaut und ans Release gehängt, nicht versioniert
+comfoair-card.js
+
+# Interne Doku/Planung – bleibt lokal, nicht auf GitHub
+Documentation/
